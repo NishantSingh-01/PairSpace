@@ -1,5 +1,6 @@
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../generated/client"
+import app from "../app";
 
 const connectionString = process.env.DATABASE_URL!
 
@@ -12,14 +13,15 @@ export const prisma = new PrismaClient({
 })
 export async function connectDB() {
     try {
-        await prisma.$connect();
+        await prisma.$connect()
+
 
         console.log("╔════════════════════════════════╗");
-        console.log("║   🟢 PRISMA CONNECTED           ║");
-        console.log("║   🐘 PostgreSQL is ready!       ║");
+        console.log("║   🟢 PRISMA CONNECTED          ║");
+        console.log("║   🐘 PostgreSQL is ready!      ║");
         console.log("╚════════════════════════════════╝");
     } catch (error) {
-        console.error("🔴 Prisma connection failed:", error);
-        process.exit(1);
+        console.error("🔴 Prisma connection failed:", error)
+        process.exit(1)
     }
 }

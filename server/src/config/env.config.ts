@@ -18,4 +18,5 @@ export const env = {
     ACCESS_TOKEN_EXPIRES_IN:( process.env.ACCESS_TOKEN_EXPIRES_IN || "15m")as SignOptions["expiresIn"],
     REFRESH_TOKEN_EXPIRES_IN:( process.env.REFRESH_TOKEN_EXPIRES_IN || "7d") as SignOptions["expiresIn"],
     NODE_ENV: process.env.NODE_ENV || "development",
+    CORS_ORIGIN:process.env.CORS_ORIGIN 
 };
