@@ -16,10 +16,10 @@ export async function connectDB() {
         await prisma.$connect()
 
 
-        console.log("╔════════════════════════════════╗");
-        console.log("║   🟢 PRISMA CONNECTED          ║");
-        console.log("║   🐘 PostgreSQL is ready!      ║");
-        console.log("╚════════════════════════════════╝");
+        console.log("╔════════════════════════════════╗")
+        console.log("║   ⚕️ PRISMA CONNECTED          ║")
+        console.log("║   🐘 PostgreSQL is ready!      ║")
+        console.log("╚════════════════════════════════╝")
     } catch (error) {
         console.error("🔴 Prisma connection failed:", error)
         process.exit(1)
