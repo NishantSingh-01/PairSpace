@@ -3,6 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import { errorHandler } from "./middleware/errorHandler.middleware"
 import { env } from "./config/env.config"
+import Authrouter from '../src/routes/auth.routes'
 
 const app = express()
 
@@ -26,5 +27,9 @@ app.use(cookieParser())
 app.get("/health", (_req, res) => {
     res.status(200).json({ status: "ok", message: "Server is healthy" })
 })
+app.use('/api/v1',Authrouter)
+
+
+
 
 export default app

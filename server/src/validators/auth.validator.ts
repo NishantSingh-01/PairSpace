@@ -18,3 +18,18 @@ export const registerSchema = z.object({
     })
 })
 export type RegisterSchemaType = z.infer<typeof registerSchema>["body"]
+
+
+
+
+
+
+
+
+
+//?we can also use like this 
+//type Body = z.infer<typeof registerSchema>["body"];
+
+// type Params = z.infer<typeof registerSchema>["params"];
+
+// type Query = z.infer<typeof registerSchema>["query"];

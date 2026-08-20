@@ -17,7 +17,7 @@ export async function connectDB() {
 
 
         console.log("╔════════════════════════════════╗")
-        console.log("║   ⚕️ PRISMA CONNECTED          ║")
+        console.log("║   ⚕️ PRISMA CONNECTED           ║")
         console.log("║   🐘 PostgreSQL is ready!      ║")
         console.log("╚════════════════════════════════╝")
     } catch (error) {
