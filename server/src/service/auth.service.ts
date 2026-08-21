@@ -119,3 +119,20 @@ export async function logoutUser(userId: string): Promise<void> {
         data: { refreshToken: null }
     })
 }
+export const getUser = async (userId: string) => {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            id: true,
+            email: true,
+            username: true,
+            avatarUrl: true,
+
+        }
+    })
+    if (!user) {
+        throw new ApiError(404, "User not found")
+    }
+
+    return user
+}

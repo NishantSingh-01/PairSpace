@@ -1,6 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler.util"
 import { ApiResponse } from "../utils/response.util"
-import { loginUser, logoutUser, registerUser, rotateRefreshToken } from "../service/auth.service"
+import { getUser, loginUser, logoutUser, registerUser, rotateRefreshToken } from "../service/auth.service"
 import { env } from "../config/env.config"
 import { ApiError } from "../utils/error.util"
 
@@ -30,6 +30,12 @@ export const login = asyncHandler(async (req, res) => {
 
     const { accessToken, refreshToken, user } = await loginUser(req.body)
 
+    res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 15 * 60 * 1000 // match your ACCESS_TOKEN_EXPIRES_IN, in ms
+    })
     res.cookie(REFRESH_COOKIE_NAME, refreshToken, cookieOptions)
 
     return res
@@ -47,6 +53,13 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
 
     const { accessToken, refreshToken } = await rotateRefreshToken(incomingToken)
 
+    res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: 15 * 60 * 1000
+    })
+
     res.cookie(REFRESH_COOKIE_NAME, refreshToken, cookieOptions)
     return res.status(200).json(
         new ApiResponse(
@@ -61,6 +74,7 @@ export const logout = asyncHandler(async (req, res) => {
     await logoutUser(req.user!._id)
 
     res.clearCookie(REFRESH_COOKIE_NAME, cookieOptions)
+    res.clearCookie("accessToken", cookieOptions)
 
     return res.status(200).json(
         new ApiResponse(200,
@@ -68,4 +82,13 @@ export const logout = asyncHandler(async (req, res) => {
             "Logged out successfully"
         )
     )
+})
+export const getMe = asyncHandler(async (req, res) => {
+    const user = await getUser(req.user!._id)
+
+    return res.status(200).json(
+        new ApiResponse(200,
+            { user },
+            "Current user fetched successfully"
+        ))
 })
