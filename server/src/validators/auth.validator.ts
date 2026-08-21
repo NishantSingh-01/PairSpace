@@ -20,14 +20,25 @@ export const registerSchema = z.object({
 export type RegisterSchemaType = z.infer<typeof registerSchema>["body"]
 
 
+export const loginSchema = z.object({
+    body: z.object({
+        email: z
+            .string({ error: "Email is required" })
+            .email({ message: "Invalid email address" }),
+        password: z
+            .string({ error: "Password is required" })
+            .min(8, { message: "Password must be at least 8 characters" })
+
+    })
+})
+
+export type LoginSchemaType = z.infer<typeof loginSchema>["body"]
 
 
 
 
 
-
-
-//?we can also use like this 
+//?we can also use like this
 //type Body = z.infer<typeof registerSchema>["body"];
 
 // type Params = z.infer<typeof registerSchema>["params"];

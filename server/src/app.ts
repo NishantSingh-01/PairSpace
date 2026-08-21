@@ -14,7 +14,6 @@ app.use(
         credentials: true
     })
 )
-app.use(errorHandler)
 app.use(express.json({
     limit: "16kb"
 }))
@@ -28,8 +27,6 @@ app.get("/health", (_req, res) => {
     res.status(200).json({ status: "ok", message: "Server is healthy" })
 })
 app.use('/api/v1',Authrouter)
-
-
-
+app.use(errorHandler)
 
 export default app
