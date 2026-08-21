@@ -7,7 +7,6 @@ export interface AuthResult {
         username: string
     }
 }
-
 export interface RefreshResult {
     accessToken: string
     refreshToken: string

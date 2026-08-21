@@ -97,7 +97,7 @@ export const rotateRefreshToken = async (incomingToken: string): Promise<Refresh
     if (!user || !user.refreshToken) {
         throw new ApiError(401, "Refresh token invalid — please log in again")
     }
-    
+
     const incomingHashed = hashToken(incomingToken)
     if (incomingHashed !== user.refreshToken) {
 

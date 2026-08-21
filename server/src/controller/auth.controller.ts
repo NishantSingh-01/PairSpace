@@ -1,6 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler.util"
 import { ApiResponse } from "../utils/response.util"
-import { loginUser, registerUser, rotateRefreshToken } from "../service/auth.service"
+import { loginUser, logoutUser, registerUser, rotateRefreshToken } from "../service/auth.service"
 import { env } from "../config/env.config"
 import { ApiError } from "../utils/error.util"
 

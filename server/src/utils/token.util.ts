@@ -25,3 +25,6 @@ export function generateRefreshToken(userId: string) {
 export function verifyRefreshToken(incomingToken: string): TokenPayload {
     return jwt.verify(incomingToken, env.JWT_REFRESH_SECRET) as TokenPayload
 }
+export function verifyAccessToken(incomingToken: string): TokenPayload {
+    return jwt.verify(incomingToken, env.JWT_ACCESS_SECRET) as TokenPayload
+}
