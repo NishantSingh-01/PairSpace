@@ -113,3 +113,9 @@ export const rotateRefreshToken = async (incomingToken: string): Promise<Refresh
         refreshToken,
     }
 }
+export async function logoutUser(userId: string): Promise<void> {
+    await prisma.user.update({
+        where: { id: userId },
+        data: { refreshToken: null }
+    })
+}
