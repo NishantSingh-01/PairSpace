@@ -13,11 +13,49 @@ model User {
   username     String   @unique
   password     String
   name         String?
-  avatarUrl    String?
+  avatarUrl    String? @default("https://imgs.search.brave.com/y4AF_fL3jimQH6NIZLawvV2EEt0gp8sY7S3QcyOMqzY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/bWFnbmlmaWMuY29t/L2ZyZWUtdmVjdG9y/L2lsbHVzdHJhdGlv/bi11c2VyLWF2YXRh/ci1pY29uXzUzODc2/LTU5MDcuanBnP3Nl/bXQ9YWlzX2h5YnJp/ZCZ3PTc0MCZxPTgw")
   isVerified   Boolean  @default(false)
   refreshToken String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
+  ownedRooms   Room[]       @relation("RoomOwner")
+  memberships  RoomMember[]
   @@map("users")
+}
+
+ 
+model Room {
+  id         String   @id @default(uuid())
+  name       String
+  inviteCode String   @unique @db.VarChar(6)
+  ownerId    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  owner   User         @relation("RoomOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members RoomMember[]
+
+  @@index([ownerId])
+  @@index([inviteCode])
+  @@map("rooms")
+}
+
+model RoomMember {
+  roomId   String     @map("room_id")
+  userId   String     @map("user_id")
+  role     MemberRole @default(editor)
+  joinedAt DateTime   @default(now())
+
+  room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([roomId, userId])
+  @@index([userId])
+  @@map("room_members")
+}
+
+enum MemberRole {
+  owner
+  editor
 }
