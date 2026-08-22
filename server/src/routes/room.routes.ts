@@ -1,8 +1,8 @@
 import { Router } from "express"
 import { verifyJWT } from "../middleware/auth.middleware";
-import { createRoomSchema, getRoomSchema } from "../validators/room.validator";
+import { createRoomSchema, deleteRoomSchema, getRoomSchema } from "../validators/room.validator";
 import { validate } from "../middleware/validate.middleware";
-import { createRoomController, getRoombyIdController } from "../controller/room.controller";
+import { createRoomController, deleteRoombyIdController, getRoombyIdController } from "../controller/room.controller";
 
 const router = Router()
 
@@ -18,5 +18,11 @@ router.get(
     verifyJWT,
     validate(getRoomSchema),
     getRoombyIdController
+)
+router.delete(
+    "/room/:roomId",
+    verifyJWT,
+    validate(deleteRoomSchema),
+    deleteRoombyIdController
 )
 export default router

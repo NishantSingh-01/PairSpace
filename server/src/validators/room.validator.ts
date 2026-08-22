@@ -14,6 +14,12 @@ export const getRoomSchema = z.object({
         roomId: z.string().uuid("Invalid room ID"),
     }),
 })
+export const deleteRoomSchema = z.object({
+    params: z.object({
+        roomId: z.string().uuid("Invalid room ID"),
+    }),
+})
 
+export type DeleteRoomInput = z.infer<typeof deleteRoomSchema>["params"]
 export type GetRoomInput = z.infer<typeof getRoomSchema>["params"]
 export type CreateRoomInput = z.infer<typeof createRoomSchema>["body"]
