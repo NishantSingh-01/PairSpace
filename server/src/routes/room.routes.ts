@@ -1,8 +1,8 @@
 import { Router } from "express"
 import { verifyJWT } from "../middleware/auth.middleware";
-import { createRoomSchema, deleteRoomSchema, getRoomSchema } from "../validators/room.validator";
+import { createRoomSchema, deleteRoomSchema, getRoomSchema, updateRoomSchema } from "../validators/room.validator";
 import { validate } from "../middleware/validate.middleware";
-import { createRoomController, deleteRoombyIdController, getRoombyIdController } from "../controller/room.controller";
+import { createRoomController, deleteRoombyIdController, getRoombyIdController, updateRoomNameController } from "../controller/room.controller";
 
 const router = Router()
 
@@ -24,5 +24,11 @@ router.delete(
     verifyJWT,
     validate(deleteRoomSchema),
     deleteRoombyIdController
+)
+router.patch(
+    "/room/:roomId",
+    verifyJWT,
+    validate(updateRoomSchema),
+    updateRoomNameController
 )
 export default router

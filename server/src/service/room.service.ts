@@ -1,7 +1,7 @@
 import { prisma } from "../config/db";
 import { ApiError } from "../utils/error.util";
 import { generateInviteCode } from "../utils/invite-code.util";
-import { CreateRoomInput } from "../validators/room.validator";
+import { CreateRoomInput, UpdateRoomInput } from "../validators/room.validator";
 
 
 export const createRoom = async (userId: string, data: CreateRoomInput) => {
@@ -52,4 +52,25 @@ export const deleteRoomsbyId = async (roomId: string) => {
     })
 
     return room
+}
+export const updateRoomName = async (roomId: string, data: UpdateRoomInput) => {
+    const room = await prisma.room.findUnique({
+        where: {
+            id: roomId,
+        },
+    })
+    if (!room) {
+        throw new ApiError(404, "Room not found");
+    }
+
+    const updatedRoom = await prisma.room.update({
+        where: {
+            id: roomId,
+        },
+        data: {
+            name: data.name,
+        },
+    })
+
+    return updatedRoom
 }
