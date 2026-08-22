@@ -1,4 +1,4 @@
-import { createRoom } from "../service/room.service"
+import { createRoom, getRoomsbyId } from "../service/room.service"
 import { asyncHandler } from "../utils/asyncHandler.util"
 import { ApiResponse } from "../utils/response.util"
 
@@ -9,9 +9,18 @@ export const createRoomController = asyncHandler(async (req, res) => {
         req.body
     )
 
-    return res.status(200).json(
+    return res.status(201).json(
         new ApiResponse(201,
             { room },
             "Room Created successfully"
+        ))
+})
+export const getRoombyIdController = asyncHandler(async (req, res) => {
+    const room = await getRoomsbyId(req.params.roomId as string)
+
+    return res.status(200).json(
+        new ApiResponse(200,
+            { room },
+            "Room fetched successfully"
         ))
 })
