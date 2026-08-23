@@ -2,6 +2,12 @@ import "dotenv/config";
 import express from "express";
 import { connectDB } from "./config/db"
 import app from "./app"
+import http from 'http'
+import { Server } from 'socket.io'
+import { initSocket } from "./sockets/socket"
+
+const server = http.createServer(app)
+initSocket(server)
 
 
 connectDB()

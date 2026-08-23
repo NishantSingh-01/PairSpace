@@ -1,4 +1,5 @@
 import { createTask, deleteTask, getTasks, updateTask } from "../service/kanban.service";
+import { io } from "../sockets/socket";
 import { asyncHandler } from "../utils/asyncHandler.util";
 import { ApiResponse } from "../utils/response.util";
 
@@ -10,6 +11,7 @@ export const createTaskController = asyncHandler(async (req, res) => {
         req.user!._id,
         req.body
     )
+    io.to(roomId).emit("task:new", task)
     return res
         .status(201)
         .json(
@@ -24,6 +26,8 @@ export const updateTaskController = asyncHandler(async (req, res) => {
         taskId as string,
         req.body
     )
+
+    io.to(roomId).emit("task:updated", task)
     return res
         .status(201)
         .json(
@@ -37,6 +41,10 @@ export const deleteTaskController = asyncHandler(async (req, res) => {
         req.user!._id,
         taskId as string
     )
+    io.to(roomId).emit("task:deleted", {
+        taskId,
+        roomId,
+    })
     return res
         .status(201)
         .json(
