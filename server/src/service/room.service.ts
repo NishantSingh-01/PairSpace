@@ -103,3 +103,18 @@ export const joinRoom = async (userId: string, data: JoinRoomInput) => {
     })
     return { room, member }
 }
+export const getAllRoomsOfUser = async (userId: string) => {
+    const rooms = await prisma.room.findMany({
+        where: {
+            members: {   // by this we can target rooms >> menmber []
+                some: {
+                    userId,
+                },
+            },
+        },
+        orderBy: {
+            createdAt: "desc",
+        }
+    })
+    return rooms
+}

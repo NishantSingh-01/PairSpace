@@ -1,4 +1,4 @@
-import { createRoom, deleteRoomsbyId, getRoomsbyId, updateRoomName, joinRoom } from "../service/room.service"
+import { createRoom, deleteRoomsbyId, getRoomsbyId, updateRoomName, joinRoom, getAllRoomsOfUser } from "../service/room.service"
 import { asyncHandler } from "../utils/asyncHandler.util"
 import { ApiResponse } from "../utils/response.util"
 
@@ -52,5 +52,15 @@ export const joinRoomController = asyncHandler(async (req, res) => {
         new ApiResponse(200,
             { result },
             "Room Join successfully"
+        ))
+})
+export const getUserRoomsController = asyncHandler(async (req, res) => {
+    const result = await getAllRoomsOfUser(
+        req.user!._id
+    )
+    return res.status(200).json(
+        new ApiResponse(200,
+            { result },
+            "All Rooms Returned successfully"
         ))
 })
