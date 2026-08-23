@@ -1,4 +1,4 @@
-import { createRoom, deleteRoomsbyId, getRoomsbyId, updateRoomName } from "../service/room.service"
+import { createRoom, deleteRoomsbyId, getRoomsbyId, updateRoomName, joinRoom } from "../service/room.service"
 import { asyncHandler } from "../utils/asyncHandler.util"
 import { ApiResponse } from "../utils/response.util"
 
@@ -41,5 +41,16 @@ export const deleteRoombyIdController = asyncHandler(async (req, res) => {
         new ApiResponse(200,
             { room },
             "Room deleted successfully"
+        ))
+})
+export const joinRoomController = asyncHandler(async (req, res) => {
+    const result = await joinRoom(
+        req.user!._id,
+        req.body
+    )
+    return res.status(200).json(
+        new ApiResponse(200,
+            { result },
+            "Room Join successfully"
         ))
 })

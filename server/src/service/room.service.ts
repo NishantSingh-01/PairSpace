@@ -1,7 +1,7 @@
 import { prisma } from "../config/db";
 import { ApiError } from "../utils/error.util";
 import { generateInviteCode } from "../utils/invite-code.util";
-import { CreateRoomInput, UpdateRoomInput } from "../validators/room.validator";
+import { CreateRoomInput, JoinRoomInput, UpdateRoomInput } from "../validators/room.validator";
 
 
 export const createRoom = async (userId: string, data: CreateRoomInput) => {
@@ -73,4 +73,33 @@ export const updateRoomName = async (roomId: string, data: UpdateRoomInput) => {
     })
 
     return updatedRoom
+}
+export const joinRoom = async (userId: string, data: JoinRoomInput) => {
+    const room = await prisma.room.findUnique({
+        where: {
+            inviteCode: data.inviteCode,
+        }
+    })
+    if (!room) {
+        throw new ApiError(404, "Room not found");
+    }
+    const existingMember = await prisma.roomMember.findUnique({
+        where: {
+            roomId_userId: {  //? when two fiel to check if both are composite key 
+                roomId: room.id,
+                userId,
+            },
+        },
+    })
+    if (existingMember) {
+        throw new ApiError(409, "You are already a member of this room")
+    }
+    const member = await prisma.roomMember.create({
+        data: {
+            roomId: room.id,
+            userId,
+            role: "editor",
+        },
+    })
+    return { room, member }
 }

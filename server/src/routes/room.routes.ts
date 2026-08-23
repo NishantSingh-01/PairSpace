@@ -1,8 +1,8 @@
 import { Router } from "express"
 import { verifyJWT } from "../middleware/auth.middleware";
-import { createRoomSchema, deleteRoomSchema, getRoomSchema, updateRoomSchema } from "../validators/room.validator";
+import { createRoomSchema, deleteRoomSchema, getRoomSchema, joinRoomSchema, updateRoomSchema } from "../validators/room.validator";
 import { validate } from "../middleware/validate.middleware";
-import { createRoomController, deleteRoombyIdController, getRoombyIdController, updateRoomNameController } from "../controller/room.controller";
+import { createRoomController, deleteRoombyIdController, getRoombyIdController, joinRoomController, updateRoomNameController } from "../controller/room.controller";
 
 const router = Router()
 
@@ -31,4 +31,10 @@ router.patch(
     validate(updateRoomSchema),
     updateRoomNameController
 )
+router.post(
+    "/room/join",
+    verifyJWT,
+    validate(joinRoomSchema),
+    joinRoomController
+);
 export default router
