@@ -5,6 +5,7 @@ import { errorHandler } from "./middleware/errorHandler.middleware"
 import { env } from "./config/env.config"
 import Authrouter from '../src/routes/auth.routes'
 import roomRoutes from "../src/routes/room.routes"
+import Taskrouter from "../src/routes/kanban.routes"
 const app = express()
 
 
@@ -28,6 +29,7 @@ app.get("/health", (_req, res) => {
 })
 app.use('/api/v1',Authrouter)
 app.use("/api/v2", roomRoutes)
+app.use("/api/v3", Taskrouter)
 
 app.use(errorHandler)
 

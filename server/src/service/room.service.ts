@@ -118,3 +118,6 @@ export const getAllRoomsOfUser = async (userId: string) => {
     })
     return rooms
 }
+
+
+//! GET    /api/rooms/:roomId/members

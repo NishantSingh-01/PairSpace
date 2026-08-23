@@ -38,7 +38,7 @@ router.post(
     joinRoomController
 )
 router.get(
-    "/",
+    "/rooms",
     verifyJWT,
     getUserRoomsController
 )
