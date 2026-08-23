@@ -53,7 +53,7 @@ export const updateTask = async (roomId: string, userId: string, taskId: string,
             id: taskId,
         },
         data: {
-            name: data,
+            ...data,
         },
     })
     return updatedTask
@@ -86,4 +86,27 @@ export const deleteTask = async (roomId: string, userId: string, taskId: string)
         }
     })
     return task
+}
+export const getTasks = async (roomId: string, userId: string) => {
+
+    const member = await prisma.roomMember.findUnique({
+        where: {
+            roomId_userId: {
+                roomId,
+                userId,
+            }
+        }
+    })
+    if (!member) {
+        throw new ApiError(403, "You are not a member of this room");
+    }
+    const tasks = await prisma.task.findMany({
+        where: {
+            roomId,
+        },
+        orderBy: {
+            createdAt: "desc",
+        }
+    })
+    return tasks
 }

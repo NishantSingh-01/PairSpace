@@ -43,3 +43,15 @@ export const deleteTaskController = asyncHandler(async (req, res) => {
             new ApiResponse(201, { task }, "Task Deleted successfully")
         )
 })
+export const getTasksController = asyncHandler(async (req, res) => {
+    const { roomId } = req.params
+    const task = await getTasks(
+        roomId as string,
+        req.user!._id
+    )
+    return res
+        .status(201)
+        .json(
+            new ApiResponse(201, { task }, "Task Returened successfully")
+        )
+})

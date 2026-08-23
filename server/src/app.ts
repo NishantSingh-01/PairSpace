@@ -29,7 +29,7 @@ app.get("/health", (_req, res) => {
 })
 app.use('/api/v1',Authrouter)
 app.use("/api/v2", roomRoutes)
-app.use("/api/v3", Taskrouter)
+app.use("/api/v3/kanban", Taskrouter)
 
 app.use(errorHandler)
 

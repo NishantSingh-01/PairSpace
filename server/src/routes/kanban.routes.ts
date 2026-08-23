@@ -1,15 +1,16 @@
 import { Router } from "express"
 import { verifyJWT } from "../middleware/auth.middleware"
 import { validate } from "../middleware/validate.middleware"
-import { createTaskSchema } from "../validators/kanban.validator"
-import { createTaskController, updateTaskController } from "../controller/kanban.controller"
-import { updateRoomSchema } from "../validators/room.validator"
+import { createTaskSchema, updateTaskSchema } from "../validators/kanban.validator"
+import { createTaskController, deleteTaskController, getTasksController, updateTaskController } from "../controller/kanban.controller"
+
 
 
 const router = Router()
 
-router.post("/task", validate(createTaskSchema), verifyJWT, createTaskController)
-router.put("/task/:id", validate(updateRoomSchema), verifyJWT, updateTaskController)
-router.delete("/task/:id", verifyJWT, updateTaskController)
+router.post("/:roomId/task", validate(createTaskSchema), verifyJWT, createTaskController)
+router.put("/:roomId/task/:taskId", validate(updateTaskSchema), verifyJWT, updateTaskController)
+router.delete("/:roomId/task/:taskId", verifyJWT, deleteTaskController)
+router.get("/:roomId/tasks", verifyJWT, getTasksController)
 
 export default router
