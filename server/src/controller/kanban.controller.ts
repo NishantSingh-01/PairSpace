@@ -1,4 +1,4 @@
-import { createTask, updateTask } from "../service/kanban.service";
+import { createTask, deleteTask, getTasks, updateTask } from "../service/kanban.service";
 import { asyncHandler } from "../utils/asyncHandler.util";
 import { ApiResponse } from "../utils/response.util";
 
@@ -28,5 +28,18 @@ export const updateTaskController = asyncHandler(async (req, res) => {
         .status(201)
         .json(
             new ApiResponse(201, { task }, "Task Updated successfully")
+        )
+})
+export const deleteTaskController = asyncHandler(async (req, res) => {
+    const { roomId, taskId } = req.params
+    const task = await deleteTask(
+        roomId as string,
+        req.user!._id,
+        taskId as string
+    )
+    return res
+        .status(201)
+        .json(
+            new ApiResponse(201, { task }, "Task Deleted successfully")
         )
 })

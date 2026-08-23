@@ -8,7 +8,8 @@ import { updateRoomSchema } from "../validators/room.validator"
 
 const router = Router()
 
-router.post("/task", validate(createTaskSchema), createTaskController)
-router.put("/task/:id", validate(updateRoomSchema), updateTaskController)
+router.post("/task", validate(createTaskSchema), verifyJWT, createTaskController)
+router.put("/task/:id", validate(updateRoomSchema), verifyJWT, updateTaskController)
+router.delete("/task/:id", verifyJWT, updateTaskController)
 
 export default router
