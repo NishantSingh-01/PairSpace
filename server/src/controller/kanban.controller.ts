@@ -11,7 +11,8 @@ export const createTaskController = asyncHandler(async (req, res) => {
         req.user!._id,
         req.body
     )
-    io.to(roomId).emit("task:new", task)
+    io.to(roomId).emit("task:new", task) //emit new task by hittin frontend 
+
     return res
         .status(201)
         .json(

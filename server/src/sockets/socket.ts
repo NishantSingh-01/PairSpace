@@ -27,20 +27,6 @@ export const initSocket = (server: HttpServer) => {
             )
         })
 
-        socket.on("task:new", (task: RoomPayload) => {
-            io.to(task.roomId).emit("task:new", task);
-        })
-
-
-        socket.on("task:updated", (task: RoomPayload) => {
-            io.to(task.roomId).emit("task:updated", task);
-        })
-
-
-        socket.on("task:deleted", (data: RoomPayload) => {
-            io.to(data.roomId).emit("task:deleted", data);
-        })
-
         socket.on("disconnect", () => {
             console.log("🔴 Socket disconnected:", socket.id);
         })

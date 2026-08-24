@@ -6,6 +6,7 @@ import { env } from "./config/env.config"
 import Authrouter from '../src/routes/auth.routes'
 import roomRoutes from "../src/routes/room.routes"
 import Taskrouter from "../src/routes/kanban.routes"
+import MessageRouter from "../src/routes/message.routes"
 const app = express()
 
 
@@ -30,6 +31,7 @@ app.get("/health", (_req, res) => {
 app.use('/api/v1',Authrouter)
 app.use("/api/v2", roomRoutes)
 app.use("/api/v3/kanban", Taskrouter)
+app.use('/api/v4',MessageRouter)
 
 app.use(errorHandler)
 

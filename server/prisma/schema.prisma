@@ -21,6 +21,8 @@ model User {
 
   ownedRooms   Room[]       @relation("RoomOwner")
   memberships  RoomMember[]
+  messages Message[]
+
   @@map("users")
 }
 
@@ -33,9 +35,10 @@ model Room {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  owner   User         @relation("RoomOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  members RoomMember[]
-  tasks Task[]
+  owner    User         @relation("RoomOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members  RoomMember[]
+  tasks    Task[]
+  messages Message[]
 
   @@index([ownerId])
   @@index([inviteCode])
@@ -80,4 +83,21 @@ model Task {
 
   @@index([roomId])
   @@map("tasks")
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+
+  roomId    String
+  senderId  String
+
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([roomId])
+  @@index([senderId])
+  @@map("messages")
 }

@@ -7,39 +7,11 @@ import { createRoomController, deleteRoombyIdController, getRoombyIdController, 
 const router = Router()
 
 
-router.post(
-    "/room",
-    verifyJWT,
-    validate(createRoomSchema),
-    createRoomController
-)
-router.get(
-    "/room/:roomId",
-    verifyJWT,
-    validate(getRoomSchema),
-    getRoombyIdController
-)
-router.delete(
-    "/room/:roomId",
-    verifyJWT,
-    validate(deleteRoomSchema),
-    deleteRoombyIdController
-)
-router.patch(
-    "/room/:roomId",
-    verifyJWT,
-    validate(updateRoomSchema),
-    updateRoomNameController
-)
-router.post(
-    "/room/join",
-    verifyJWT,
-    validate(joinRoomSchema),
-    joinRoomController
-)
-router.get(
-    "/rooms",
-    verifyJWT,
-    getUserRoomsController
-)
+router.post("/room", verifyJWT, validate(createRoomSchema), createRoomController)
+router.get("/room/:roomId", verifyJWT, validate(getRoomSchema), getRoombyIdController)
+router.delete("/room/:roomId", verifyJWT, validate(deleteRoomSchema), deleteRoombyIdController)
+router.patch("/room/:roomId", verifyJWT, validate(updateRoomSchema), updateRoomNameController)
+router.post("/room/join", verifyJWT, validate(joinRoomSchema), joinRoomController)
+router.get("/rooms", verifyJWT, getUserRoomsController)
+
 export default router
