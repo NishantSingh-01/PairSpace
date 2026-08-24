@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.util";
 import { createMessage, getMessage } from "../service/message.service"
 import { ApiResponse } from "../utils/response.util";
+import { io } from "../sockets/socket";
 
 export const createMessageController = asyncHandler(async (req, res) => {
     const { roomId } = req.params
@@ -23,6 +24,7 @@ export const getMessageController = asyncHandler(async (req, res) => {
         roomId as string,
         req.user!._id,
     )
+    io.to(roomId).emit("message:new", message)
     return res
         .status(201)
         .json(

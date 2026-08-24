@@ -85,7 +85,7 @@ export const joinRoom = async (userId: string, data: JoinRoomInput) => {
     }
     const existingMember = await prisma.roomMember.findUnique({
         where: {
-            roomId_userId: {  //? when two fiel to check if both are composite key 
+            roomId_userId: {  //? when two field to check if both are composite key 
                 roomId: room.id,
                 userId,
             },
