@@ -22,7 +22,7 @@ export const register = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: env.NODE_ENV === "production",
         sameSite: "strict",
-        maxAge: 15 * 60 * 1000 // match your ACCESS_TOKEN_EXPIRES_IN, in ms
+        maxAge: 15 * 60 * 1000
     })
     res.cookie(REFRESH_COOKIE_NAME, refreshToken, cookieOptions)
 
@@ -40,7 +40,7 @@ export const login = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: env.NODE_ENV === "production",
         sameSite: "strict",
-        maxAge: 15 * 60 * 1000 // match your ACCESS_TOKEN_EXPIRES_IN, in ms
+        maxAge: 15 * 60 * 1000
     })
     res.cookie(REFRESH_COOKIE_NAME, refreshToken, cookieOptions)
 
