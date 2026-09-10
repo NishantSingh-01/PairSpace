@@ -2,6 +2,7 @@ import './App.css'
 import Login from './pages/auth/login'
 import Register from './pages/auth/Register'
 import NotFound from './pages/NotFound'
+import  Room from './pages/rooms/Room'
 
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
     <NotFound/>
     <Login/>
     <Register/>
+    <Room/>
     </>
     
   )

@@ -49,7 +49,7 @@ export default function Login() {
             </div>  
 
             <div className="w-full max-w-md  bg-gray-900 border border-gray-700 rounded-2xl p-8">
-                <h1 className="text-white text-2xl font-bold mb-1">
+                <h1 className="text-white font-mono  text-2xl font-bold mb-1">
                     Welcome back
                 </h1>
 
