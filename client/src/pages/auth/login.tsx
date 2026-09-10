@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react"
-import { Code2, Mail, Lock } from "lucide-react"
+import { Braces , Mail, Lock,  } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 interface LoginFormState {
@@ -37,18 +37,18 @@ export default function Login() {
     }
 
     return (
-        <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center px-4 font-mono">
+        <div className="min-h-screen w-full bg-[#070707f7] flex flex-col items-center justify-center px-4 ">
             <div className="flex items-center gap-3 mb-8 w-full max-w-md">
                 <div className="w-9 h-9 rounded-lg bg-teal-400 flex items-center justify-center">
-                    <Code2 className="w-5 h-5 text-black" strokeWidth={2.5} />
+                    <Braces  className="h-7 w-7 text-black " />
                 </div>
 
                 <span className="text-white font-bold text-lg">
                     PairSpace
                 </span>
-            </div>
+            </div>  
 
-            <div className="w-full max-w-md bg-gray-900 border border-gray-700 rounded-2xl p-8">
+            <div className="w-full max-w-md  bg-gray-900 border border-gray-700 rounded-2xl p-8">
                 <h1 className="text-white text-2xl font-bold mb-1">
                     Welcome back
                 </h1>
