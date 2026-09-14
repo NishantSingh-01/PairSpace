@@ -6,9 +6,10 @@ import http from 'http'
 import { Server } from 'socket.io'
 import { initSocket } from "./sockets/socket"
 import { connectRedis } from "./config/redis.config";
+import { initRealtime } from "./realtime";
 
 const server = http.createServer(app)
-initSocket(server)
+initRealtime(server)
 
 
 const startServer = async () => {

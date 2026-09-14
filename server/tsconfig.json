@@ -1,22 +1,3 @@
-// {
-//   "compilerOptions": {
-//     "target": "ES2022",
-//     "module": "Node16",           // <-- was "commonjs"
-//     "moduleResolution": "node16",
-//     "rootDir": "./src",
-//     "outDir": "./dist",
-//     "strict": true,
-//     "types": ["node"],
-//     "esModuleInterop": true,
-//     "skipLibCheck": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "resolveJsonModule": true,
-//     "sourceMap": true,
-//     "incremental": true
-//   },
-//   "include": ["src/**/*.ts"],
-//   "exclude": ["node_modules", "dist"]
-// }
 {
   "compilerOptions": {
     "target": "ES2022",
@@ -32,7 +13,13 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@y/websocket-server/*": [
+        "node_modules/@y/websocket-server/dist/src/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts"
