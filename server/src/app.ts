@@ -9,11 +9,25 @@ import Taskrouter from "../src/routes/kanban.routes"
 import MessageRouter from "../src/routes/message.routes"
 const app = express()
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    env.CORS_ORIGIN
+].filter(Boolean)
 
 app.use(
     cors({
-        origin: env.CORS_ORIGIN || "http://localhost:8090/health",
-        credentials: true
+        origin: (origin, callback) => {
+            if (!origin) return callback(null, true)
+            if (env.CORS_ORIGIN === "*" || allowedOrigins.includes(origin)) {
+                return callback(null, origin)
+            }
+            return callback(new Error("CORS origin not allowed: " + origin))
+        },
+        credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
     })
 )
 app.use(express.json({

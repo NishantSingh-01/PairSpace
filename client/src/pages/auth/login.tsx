@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react"
-import { Braces , Mail, Lock,  } from "lucide-react"
+import { Braces, Mail, Lock } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
+import { useAuth } from "../../context/AuthContext"
 
 interface LoginFormState {
     email: string
@@ -9,6 +11,7 @@ interface LoginFormState {
 
 export default function Login() {
     const navigate = useNavigate()
+    const { login } = useAuth()
 
     const [form, setForm] = useState<LoginFormState>({
         email: "",
@@ -24,13 +27,19 @@ export default function Login() {
         setIsSubmitting(true)
 
         try {
-            // Simulate an API call
+            const res = await login({
+                email: form.email.trim(),
+                password: form.password
+            })
+            toast.success(res.message || "Welcome back! Login successful.")
+            navigate("/")
         } catch (err) {
-            setError(
+            const errorMessage =
                 err instanceof Error
                     ? err.message
                     : "Something went wrong"
-            )
+            setError(errorMessage)
+            toast.error(errorMessage)
         } finally {
             setIsSubmitting(false)
         }

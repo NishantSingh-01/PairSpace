@@ -11,10 +11,7 @@ export const initYjs = (server: HttpServer) => {
 
     wss.on("connection", (ws, request) => {
         setupWSConnection(ws, request);
-        const url = new URL(
-            request.url || "",
-            `http://${request.headers.host}`
-        )
+        const url = new URL(request.url || "", `http://${request.headers.host}`)
     })
 
     server.on("upgrade", (request, socket, head) => {
@@ -31,4 +28,4 @@ export const initYjs = (server: HttpServer) => {
     })
 
     console.log("🟢 Yjs WebSocket initialized")
-};
+}

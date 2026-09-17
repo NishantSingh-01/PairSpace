@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react"
 import { Braces, Mail, Lock, User } from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "sonner"
+import { useAuth } from "../../context/AuthContext"
 
 interface RegisterFormState {
     username: string
@@ -10,6 +12,7 @@ interface RegisterFormState {
 
 export default function Register() {
     const navigate = useNavigate()
+    const { register } = useAuth()
 
     const [form, setForm] = useState<RegisterFormState>({
         username: "",
@@ -26,13 +29,18 @@ export default function Register() {
         setIsSubmitting(true)
 
         try {
-
-            // Simulate an API call
-
+            const res = await register({
+                username: form.username.trim(),
+                email: form.email.trim(),
+                password: form.password
+            })
+            toast.success(res.message || "Account created successfully! Welcome to PairSpace.")
+            navigate("/")
         } catch (err) {
-            setError(
+            const errorMessage =
                 err instanceof Error ? err.message : "Something went wrong"
-            )
+            setError(errorMessage)
+            toast.error(errorMessage)
         } finally {
             setIsSubmitting(false)
         }

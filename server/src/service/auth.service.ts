@@ -68,7 +68,7 @@ export const loginUser = async (data: LoginSchemaType): Promise<AuthResult> => {
     }
     const isPasswordCorrect = await comparePassword(password, user.password)
     if (!isPasswordCorrect) {
-        throw new Error("Invalid password")
+        throw new ApiError(401, "Invalid password")
     }
 
     const { accessToken, refreshToken } = await issueTokenPair(user.id)
